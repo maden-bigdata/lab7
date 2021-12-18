@@ -17,7 +17,10 @@ function init_space()
         { name = 'TickTime', type = 'number' },
         { name = 'Speed', type = 'number' }
     })
+    -- sort by TickTime
     space:create_index('primary', { parts={'Day','TickTime','Speed'}, if_not_exists=true})
+    -- sort by Speed
+    space:create_index('speed', {parts={'Day', 'Speed', 'TickTime'}, if_not_exists=true})
     print('Created space')
     return space
 end
@@ -31,7 +34,7 @@ function init_mqtt()
         print('New message', message_id, topic, payload, gos, retain)
         put_data_to_space(parse_mqtt_payload(payload))
     end)
-    connection:subscribe(mqtt_topic)
+    connection:subscribe(mqtt_topic, 1)
     print('Subscribed to', mqtt_topic)
 end
 
