@@ -11,3 +11,9 @@
     sudo apt-get install libssl-dev
     sudo tarantoolctl rocks install mqtt
 
+## Запуск
+    tarantool populate_space.lua
+    tarantool analyze.lua
+
+## Результат
+![](result.png)
